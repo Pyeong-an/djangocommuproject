@@ -1,0 +1,29 @@
+cmd
+
+pip3 install virtualenv #가상환경
+virtualenv 서버이름 #서버 생성
+서버이름/Scripts/activate #zsh의 경우 앞에 source를 붙임 #가상 환경켜기
+
+pip3 install django #장고 설치
+
+django-admin startproject 프로젝트이름 #프로젝트스타트
+cd 프로젝트이름 #프로젝트로 들어가서 스타트앱해야함
+django-admin startapp 앱이름 #묶어 데이터베이스에 저장할 요소를 만듦
+
+각 앱에 templates 폴더 추가
+
+프로젝트이름/프로젝트이름/settings.py 의 intalled apps 배열에 새로 만든 앱 추가
+
+-
+
+python manage.py createsuperuser
+
+password = 'fastfast152'
+
+-
+
+모델 작성
+class 모델이름(models.Model):'
+
+python manage.py makemigtations
+python manage.py migrate

@@ -8,22 +8,24 @@
 </head>
 
 <body>
-    <table align=center style="text-align:center;" >
+    <br>
+    <table align=center style="text-align:center;">
         <tr>
-            <td width = 100>
+            <td width=100>
                 뽑기
             </td>
-            <td width = 100>
-                포인트 순위
+            <td width=100>
+               
             </td>
-            <td width = 100>
-                로그 순위
+            <td width=100><a href="/home/charank/" style="text-decoration:none; color:green">로그 순위</a>
             </td>
         </tr>
-        <tr><td>&nbsp;</td></tr>
         <tr>
-                <td colspan=3 ><a href="/home/main/" style="text-decoration:none; color:green">새로고침</a>
-                </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan=3><a href="/home/main/" style="text-decoration:none; color:green">새로고침</a>
+            </td>
         </tr>
     </table>
     <form action="." method="post" align="center">
@@ -31,27 +33,30 @@
         <p style="line-height:20px;">장소 : <input type="text" id="where" name="where">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 비밀번호
             : <input type="password" id="password" name="password"></p>
         <p><textarea style="width:480px;height:100px;resize:none;" id="contents" name='contents'></textarea></p>
-        
+
         <p><input type="submit"></p>
     </form>
     <hr style="width:800px">
     {% for log in logs %}
     <table align=center>
         <tr>
-            <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150' height='150'></img></td>
-            <td colspan=3 bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
-            <td style="text-align:center;"  bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>  
+            <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
+                    height='150'></img></td>
+            <td colspan=3 bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}
+            </td>
+            <td style="text-align:center;" bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
         </tr>
         <tr>
             <td colspan=5 width=600 style="vertical-align:top;"><br>&nbsp;{{ log.contents }}</td>
         </tr>
         <tr>
-            
-        <td colspan=4></td>
-        
-        <td style="text-align:right;"><a href="/home/log/{{log.id}}" style = "text-decoration:none; color:green">상세</a></td>
-        
-    </tr>
+
+            <td colspan=4></td>
+
+            <td style="text-align:right;"><a href="/home/log/{{log.id}}"
+                    style="text-decoration:none; color:green">상세</a></td>
+
+        </tr>
         <tr>&nbsp;</tr>
 
     </table>

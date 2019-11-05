@@ -4,7 +4,6 @@ from django.db import models
 class CharList(models.Model):
     charname =  models.CharField(max_length=64,verbose_name='캐릭터 이름')
     password = models.CharField(max_length=64,verbose_name='비밀번호')
-    logcount = models.CharField(max_length=64,verbose_name='로그 수')
     charcon = models.CharField(max_length=256,verbose_name='콘')
 
     def __str__(self):

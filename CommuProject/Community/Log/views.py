@@ -2,21 +2,24 @@ from django.shortcuts import render
 from .models import LogList
 from Char.models import CharList
 from sub_log.models import SubLogList
+from charanking.models import charanking
 # Create your views here.
 
 def log_plus(char):
     """
     로그 카운터를 하나 증가시키고 저장하는 함수
     """
-    char.logcount = str(int(char.logcount) + 1)
-    char.save()
+    charank = charanking.objects.get(charname=char.charname)
+    charank.logcount +=1
+    charank.save()
     return
 def log_minus(char):
     """
     로그 카운터를 하나 감소시키고 저장하는 함수
     """
-    char.logcount = str(int(char.logcount) - 1)
-    char.save()
+    charank = charanking.objects.get(charname=char.charname)
+    charank.logcount -=1
+    charank.save()
     return
 def log_substitute(log,char,where,contents):
     """
@@ -43,7 +46,7 @@ def main_page(request):
             where = request.POST.get('where',None) #받아오지 않은 포스트값을 받아옴
             contents = request.POST.get('contents',None)
             char = CharList.objects.get(password=password) #캐릭터 리스트에서 패스워드와 맞는 캐릭터 불러옴
-
+            
             log_plus(char) #로그 카운터 증가 함수   
 
             log_substitute(log,char,where,contents) #로그에 각 값 대입하는 함수
@@ -161,5 +164,8 @@ def log_delete(request,lg):
         return render (request, 'delete_confirm.html',{'log':sublog})
     
 
-    def char_ranking(request):
-        pass
+def char_ranking(request):
+
+    ranking = charanking.objects.all().order_by('-logcount')
+    return render(request, 'char_ranking.html',{"rank":ranking})
+

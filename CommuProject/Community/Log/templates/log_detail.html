@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <title>커뮤니티 메인홈페이지</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body>
+
+    {% for log in logs %}
+    <table align=center>
+        <tr>
+            <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
+                    height='150'></img></td>
+            <td bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
+            <td bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
+            <td bgcolor="#A9A9F5"><a href="/home/modify/{{log.id}}" style="text-decoration:none; color:green">수정</a>
+            </td>
+            <td bgcolor="#A9A9F5" style="text-align:center; text-decoration:none; color:red" id='{{log.id  }}'>삭제</td>
+        </tr>
+        <tr>
+            <td colspan=5 width=600 style="vertical-align:top;"><br>&nbsp;{{ log.contents }}</td>
+        </tr>
+        <tr>
+            <td colspan=4></td>
+            <td style="text-align:center;"><a href="/" style="text-decoration:none; color:green">상세</a></td>
+            <hr style="width:800px">
+        </tr>
+        <tr>&nbsp;</tr>
+
+    </table>
+    {% if forloop.last %}
+    <form action="/home/log/{{log.mainlog}}" method="post" align="center">
+        
+        {% csrf_token %}
+        <p style="line-height:20px;">장소 : <input type="text" id="where" name="where">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 비밀번호
+            : <input type="password" id="password" name="password"></p>
+        <p><textarea style="width:480px;height:100px;resize:none;" id="contents" name='contents'></textarea></p>
+
+        <p><input type="submit"></p>
+    </form>
+    {% endif %}
+    {% endfor   %}
+</body>
+
+</html>

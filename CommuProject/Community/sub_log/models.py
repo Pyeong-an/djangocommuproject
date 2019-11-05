@@ -1,7 +1,8 @@
 from django.db import models
 
 # Create your models here.
-class LogList(models.Model):
+class SubLogList(models.Model):
+    mainlog = models.CharField(max_length=64, verbose_name='상위 로그')
     charname =  models.CharField(max_length=64, verbose_name='캐릭터 이름')
     where =  models.CharField(max_length=64,verbose_name='장소')
     charcon =  models.CharField(max_length=64,verbose_name='콘')
@@ -13,5 +14,5 @@ class LogList(models.Model):
         return self.charname
 
     class Meta:
-        db_table = 'LogList'
-        verbose_name = verbose_name_plural = '로그'
+        db_table = "SubLogList"
+        verbose_name = verbose_name_plural = '서브 로그'

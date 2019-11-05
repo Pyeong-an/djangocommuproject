@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Char',
     'Log',
+    'sub_log'
 ]
 
 MIDDLEWARE = [

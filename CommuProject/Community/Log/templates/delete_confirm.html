@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>비밀번호 확인</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body>
+    <table align=center>
+        <tr>
+            <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
+                    height='150'></img></td>
+            <td bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
+            <td colspan=3 bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
+        </tr>
+        <tr>
+            <td colspan=5 width=600 style="vertical-align:top;"><br>&nbsp;{{ log.contents }}</td>
+        </tr>
+    </table>
+    <p align='center'><font color = red><b>삭제 시 포인트와 로그가 차감됩니다!</b></font></p>
+    <tr>
+        <form action='/home/delete/{{log.id}}' method='POST' align='center' name='paswword_confirm'>
+            {% csrf_token %}
+            <br>
+                비밀번호 : <input type="password" id="password" name="password"></p>
+            <p align='center'><input type="submit"></p>
+        </form>
+    </tr>
+    
+
+</body>
+
+</html>

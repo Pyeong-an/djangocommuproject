@@ -16,16 +16,15 @@
                     height='150'></img></td>
             <td bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
             <td bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
-            <td bgcolor="#A9A9F5"><a href="/home/modify/{{log.id}}" style="text-decoration:none; color:green">수정</a>
+            <td bgcolor="#A9A9F5"><a href="/home/confirm/{{log.id}}" style="text-decoration:none; color:green">수정</a>
             </td>
-            <td bgcolor="#A9A9F5" style="text-align:center; text-decoration:none; color:red" id='{{log.id  }}'>삭제</td>
+            <td bgcolor="#A9A9F5"><a href="/home/delete/{{log.id}}" style="text-decoration:none; color:red">삭제</a>
+            </td>
         </tr>
         <tr>
             <td colspan=5 width=600 style="vertical-align:top;"><br>&nbsp;{{ log.contents }}</td>
         </tr>
         <tr>
-            <td colspan=4></td>
-            <td style="text-align:center;"><a href="/" style="text-decoration:none; color:green">상세</a></td>
             <hr style="width:800px">
         </tr>
         <tr>&nbsp;</tr>

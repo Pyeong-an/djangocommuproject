@@ -30,6 +30,7 @@ def log_substitute(log,char,where,contents):
     log.contents = contents
     log.charcon = char.charcon
     log.password = char.password
+    
     return
 
 #메인 페이지
@@ -50,6 +51,7 @@ def main_page(request):
             log_plus(char) #로그 카운터 증가 함수   
 
             log_substitute(log,char,where,contents) #로그에 각 값 대입하는 함수
+            log.sublog_count = 1
             log.save()
 
             log_substitute(sublog,char,where,contents) #로그와 마찬가지로 서브로그 첫번째 값에 대입
@@ -76,6 +78,11 @@ def log_detail(request, lg):#없는 메인로그로 들어갔을 때 예외처�
             return render(request, 'wrong_char.html') #비밀번호가 틀렸을 때
         else:#비밀번호가 맞았을 때 이번엔 서브로그만 추가해야함!
             sublog = SubLogList() #빈 서브로그 생성
+
+            mainlg = LogList.objects.get(id=lg)
+            mainlg.sublog_count += 1
+            mainlg.save()
+
             char = CharList.objects.get(password=password) #캐릭터 리스트에서 패스워드와 맞는 캐릭터 불러옴
             where = request.POST.get('where',None) #받아오지 않은 포스트값을 받아옴
             contents = request.POST.get('contents',None)
@@ -85,6 +92,8 @@ def log_detail(request, lg):#없는 메인로그로 들어갔을 때 예외처�
             log_substitute(sublog,char,where,contents) #로그와 마찬가지로 서브로그 첫번째 값에 대입
             sublog.mainlog = lg #메인로그 넣어줌
             sublog.save()
+
+            
             
             return render(request, 'log_detail.html',{'logs':subloglist})
 
@@ -111,18 +120,22 @@ def log_modify(request,lg):
         return render(request, 'wrong_char.html')
     if request.method == "POST":
         sublog = SubLogList.objects.get(id=lg)#고칠 서브로그를 불러와서 수정!!
+        password = request.POST.get('password',None)
         #메인로그도 고쳐야하는지 판별하기 위해 메인로그도 불러온다
         if sublog == SubLogList.objects.filter(mainlog=sublog.mainlog).order_by('id')[0]:
             #서브로그리스트를 차례대로 정렬한 것의 제일 첫번째와 서브로그가 일치하는 경우 메인로그도 고쳐야 한다
+            
             log = LogList.objects.get(id=sublog.mainlog)
-            log.password = request.POST.get('password',None)
+            log.password = password
             log.where = request.POST.get('where',None)
             log.contents = request.POST.get('contents',None)
+            log.charcon = CharList.objects.get(password=password).charcon
             log.save()
 
-        sublog.password = request.POST.get('password',None)
+        sublog.password = password
         sublog.where = request.POST.get('where',None)
         sublog.contents = request.POST.get('contents',None)
+        sublog.charcon = CharList.objects.get(password=password).charcon
         sublog.save()
         #수정후 저장을 마치고
         subloglist = SubLogList.objects.filter(mainlog=sublog.mainlog).order_by('id')
@@ -152,9 +165,15 @@ def log_delete(request,lg):
                     subl.delete()
 
             else:
+                mainlg = LogList.objects.get(id=sublog.mainlog)
+                mainlg.sublog_count -= 1
+                mainlg.save()
+                
                 char = CharList.objects.get(password=sublog.password)
                 log_minus(char)
                 sublog.delete()
+
+
             loglist = LogList.objects.all().order_by('-id')[:10]#보드의 정렬
 
             return render(request, 'main_page.html',{'logs' : loglist})

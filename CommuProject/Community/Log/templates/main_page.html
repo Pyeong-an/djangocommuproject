@@ -28,7 +28,7 @@
             </td>
         </tr>
     </table>
-    <form action="." method="post" align="center">
+    <form action="/home/main/" method="post" align="center">
         {% csrf_token %}
         <p style="line-height:20px;">장소 : <input type="text" id="where" name="where">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 비밀번호
             : <input type="password" id="password" name="password"></p>
@@ -42,16 +42,16 @@
         <tr>
             <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
                     height='150'></img></td>
-            <td colspan=3 bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}
+            <td colspan=3 bgcolor="#E0E0F8" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}
             </td>
-            <td style="text-align:center;" bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
+            <td style="text-align:center;" bgcolor="#E0E0F8" width=150><small>{{ log.write_dttm }}</small></td>
         </tr>
         <tr>
             <td colspan=5 width=600 style="vertical-align:top;"><br>&nbsp;{{ log.contents }}</td>
         </tr>
         <tr>
-
-            <td colspan=4></td>
+            <td><b>{{ log.sublog_count }}</b></td>
+            <td colspan=3></td>
 
             <td style="text-align:right;"><a href="/home/log/{{log.id}}"
                     style="text-decoration:none; color:green">상세</a></td>

@@ -14,11 +14,11 @@
         <tr>
             <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
                     height='150'></img></td>
-            <td bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
-            <td bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
-            <td bgcolor="#A9A9F5"><a href="/home/confirm/{{log.id}}" style="text-decoration:none; color:green">수정</a>
+            <td bgcolor="#E0E0F8" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
+            <td bgcolor="#E0E0F8" width=150><small>{{ log.write_dttm }}</small></td>
+            <td bgcolor="#E0E0F8"><a href="/home/confirm/{{log.id}}" style="text-decoration:none; color:green">수정</a>
             </td>
-            <td bgcolor="#A9A9F5"><a href="/home/delete/{{log.id}}" style="text-decoration:none; color:red">삭제</a>
+            <td bgcolor="#E0E0F8"><a href="/home/delete/{{log.id}}" style="text-decoration:none; color:red">삭제</a>
             </td>
         </tr>
         <tr>
@@ -40,9 +40,11 @@
 
         <p><input type="submit"></p>
     </form>
+    <p align='center'><a href="/home/log/{{log.mainlog}}" style="text-decoration:none; color:green">새로고침</a></p>
     {% endif %}
     {% endfor   %}
     <p align='center'><a href="/home/main" style="text-decoration:none; color:green">메인 페이지로</a></p>
+    
 </body>
 
 </html>

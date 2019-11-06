@@ -66,7 +66,7 @@ def main_page(request):
         return render(request, 'main_page.html',{'logs' : loglist})
 
 #상세를 눌렀을 때 로그 개별 창이 나오게 한다
-def log_detail(request, lg):#없는 메인로그로 들어갔을 때 예외처리해야함<<<<<<<<<<<<<<<<<<<ㄴ
+def log_detail(request, lg):
     if not SubLogList.objects.filter(mainlog=lg):
         return render(request, 'wrong_char.html')
     subloglist = SubLogList.objects.filter(mainlog=lg).order_by('id')

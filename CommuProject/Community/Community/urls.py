@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from Log.views import main_page
 
 urlpatterns = [
     path('miro/', admin.site.urls),
     path('home/', include('Log.urls')),
+    path('', main_page),
 ]

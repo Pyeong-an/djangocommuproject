@@ -4,8 +4,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('', views.main_page),
     path('main/', views.main_page),#모든 로그 확인
-    path('main/<int:page>', views.paging), #페이징
+    path('main/<int:page>', views.main_page), #페이징
     path('main/paging', views.choose_paging), #선택페이징
     path('log/<int:lg>', views.log_detail),#서브로그확인
     path('confirm/<int:lg>', views.log_confirm),#수정

@@ -152,7 +152,7 @@
             <td colspan=3></td>
 
             <td style="text-align:right;">
-                <button type="button" id="normal_btn" onclick="location.href='/home/log/{{log.id}}'">상세</button></td>
+                <button type="button" id="normal_btn" onclick="location.href='/home/log/{{log.id}}#rep'">상세</button></td>
 
         </tr>
         <tr>&nbsp;</tr>
@@ -194,7 +194,6 @@
                 최근 접속자{% for age in data.latest %}<br>{{ age}}{% endfor %}
             </td></tr></table>
     </div>
-
 </body>
 
 </html>

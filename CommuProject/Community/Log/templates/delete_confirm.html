@@ -3,33 +3,100 @@
 <head>
     <title>비밀번호 확인</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        table tr td {
+            border-radius: 6px;
+            text-align: center;
+            color: rgb(136, 100, 245);
+        }
+        #inp {
+            position: relative;
+            z-index: 1;
+
+            border: 2px solid #E0E0F8;
+            border-radius: 6px;
+
+        }
+        #inp:after {
+            top: 0;
+            left: 0;
+            position: absolute;
+            opacity: 0.1 !important;
+            filter: alpha(opacity=50);
+            z-index: -1;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: url(/static/img/emblem.png);
+            opacity: 0.3;
+        }
+        input {
+            border: 1px solid #E0E0F8;
+            border-radius: 7px;
+        }
+        button {
+            border-radius: 8px;
+            border: 1px solid #E0E0F8;
+            background-color: white;
+            color: rgb(136, 100, 245);
+            padding: 5px;
+            font-size: 16px;
+            width: 100px
+        }
+        #contents{
+            vertical-align:top;
+            text-align:left;
+            border: 1px solid #E0E0F8;
+            border-radius: 6px;
+            color:black;
+            background-color: rgb(255,255,255,0.6);
+        }
+    </style>
 
 </head>
 
 <body>
-    <table align=center>
+    <table id="inp" align=center>
         <tr>
             <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
                     height='150'></img></td>
-            <td bgcolor="#A9A9F5" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}</td>
-            <td colspan=3 bgcolor="#A9A9F5" width=150><small>{{ log.write_dttm }}</small></td>
+            <td colspan=3 bgcolor="#E0E0F8" width=370 height=10 style="text-align: left;">
+                <strong>{{ log.charname }}</strong>, {{ log.where }}
+            </td>
+            <td bgcolor="#E0E0F8" width=150><small>{{ log.write_dttm }}</small></td>
         </tr>
         <tr>
-            <td colspan=5 width=600 style="vertical-align:top;"><br>&nbsp;{{ log.contents }}</td>
+                <td id="contents" colspan=5 width=600>
+                        &nbsp;
+                            {% autoescape off %}
+                            {{ log.contents|linebreaksbr }}
+                            {% endautoescape %}
+                        </td>
         </tr>
+        <tr>&nbsp;</tr>
+
     </table>
-    <p align='center'><font color = red><b>삭제 시 포인트와 로그가 차감됩니다!</b></font></p>
+
     <tr>
         <form action='/home/delete/{{log.id}}' method='POST' align='center' name='paswword_confirm'>
             {% csrf_token %}
             <br>
-                비밀번호 : <input type="password" id="password" name="password"></p>
-            <p align='center'><input type="submit"></p>
+            <table align='center' style="border: 2px solid #E0E0F8; border-radius: 6px;">
+                <tr>
+                    <td style="width:50px;">PW</td>
+                    <td><input type="password" id="password" name="password" style='width:130px'></td>
+                    <td>
+
+                        <button id="normal_btn" type="submit" style="color:red">삭제</button>
+                    </td>
+
+
+
+
+            </table>
         </form>
     </tr>
-    <p align='center'><a href="/home/main" style="text-decoration:none; color:green">메인 페이지로</a></p>
-
+    <p align='center'><button id="rep" type="button" onclick="location.href='/home/main/'">메인 페이지</button>
 </body>
 
 </html>

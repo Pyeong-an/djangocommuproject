@@ -3,19 +3,82 @@
 <head>
     <title>커뮤니티 메인홈페이지</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+    table tr td {
+            border-radius: 6px;
+            text-align: center;
+            color: rgb(136, 100, 245);
+        }
+        #inp {
+            position: relative;
+            z-index: 1;
+
+            border: 2px solid #E0E0F8;
+            border-radius: 6px;
+
+        }
+        #inp:after {
+            top: 0;
+            left: 0;
+            position: absolute;
+            opacity: 0.1 !important;
+            filter: alpha(opacity=50);
+            z-index: -1;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: url(/static/img/emblem.png);
+            opacity: 0.3;
+        }
+        input {
+            border: 1px solid #E0E0F8;
+            border-radius: 7px;
+        }
+        button {
+            border-radius: 8px;
+            border: 1px solid #E0E0F8;
+            background-color: white;
+            color: rgb(136, 100, 245);
+            padding: 5px;
+            font-size: 16px;
+            width: 100px
+        }
+        #contents{
+            vertical-align:top;
+            text-align:left;
+            border: 1px solid #E0E0F8;
+            border-radius: 6px;
+            color:black;
+            background-color: rgb(255,255,255,0.6);
+        }</style>
 
 </head>
 
 <body>
     <form action="/home/modify/{{log.id}}" method="post" align="center">
-
         {% csrf_token %}
-        <p style="line-height:20px;">장소 : <input type="text" id="where" name="where">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 비밀번호
-            : <input type="password" id="password" name="password"></p>
-        <p><textarea style="width:480px;height:100px;resize:none;" id="contents" name='contents'></textarea></p>
+        <table id="inp" align=center>
+            <tr>
+                <td rowspan=2 width=160 height=160><img src="/1234/" style="vertical-align:top;" width='150'
+                        height='150'></img></td>
+                <td bgcolor="#E0E0F8" width=200 height=10>이름은 자동 입력이에요!</td>
+                <td bgcolor="#E0E0F8" width=40>장소</td>
+                <td><input type="text" id="where" name="where" style="height:22px;"></td>
+                <td bgcolor="#E0E0F8" width=40>PW</td>
+                <td><input type="password" id="password" name="password" style="width:130px;height:22px;"></td>
+            </tr>
+            <tr>
+                <td colspan=6 style="vertical-align:top;">
+                    <textarea style="width:600px;height:129px;resize:none;" id="contents" name='contents'>{{ log.contents }}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=5></td>
 
-        <p><input type="submit"></p>
+                <td style="text-align:right;"><button id="normal_btn" type="submit">수정</button></td>
+
+            </tr>
+        </table>
     </form>
     <p align='center'><a href="/home/main" style="text-decoration:none; color:green">메인 페이지로</a></p>
 </body>

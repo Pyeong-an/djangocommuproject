@@ -7,8 +7,8 @@
         table tr td {
             border-radius: 6px;
             text-align: center;
+            color: rgb(136, 100, 245);
         }
-
         #inp {
             position: relative;
             z-index: 1;
@@ -17,7 +17,6 @@
             border-radius: 6px;
 
         }
-
         #inp:after {
             top: 0;
             left: 0;
@@ -31,39 +30,54 @@
             background-image: url(/static/img/emblem.png);
             opacity: 0.3;
         }
-
         input {
+            border: 1px solid #E0E0F8;
             border-radius: 7px;
         }
-
-        button {
+        #normal_btn {
             border-radius: 8px;
             border: 1px solid #E0E0F8;
             background-color: white;
-            color: #9F81F7;
+            color: rgb(136, 100, 245);
             padding: 5px;
             font-size: 16px;
             width: 100px
         }
-
+        #contents{
+            vertical-align:top;
+            text-align:left;
+            border: 1px solid #E0E0F8;
+            border-radius: 6px;
+            color:black;
+            background-color: rgb(255,255,255,0.6);
+        }
         #notice {
-
             text-align:center;
             background-image: url(/static/img/notice.jpg);
+            color:black;
             width:500px;
-
         }
         #top {
             position:fixed;
             bottom:20px;
-            right:20px;
+            right:10px;
         }
+        #latest{
+            position:fixed;
+            bottom:50%;
+            right:10px;
+
+            border: 2px solid #E0E0F8;
+            border-radius: 6px;
+            color: rgb(136, 100, 245);
+        }
+        
     </style>
 </head>
 
 <body>
     <div id="top_direct"><br></div>
-    <table align=center style="border:None;background-image:none;">
+    <table align=center>
         <tr>
             <td width=100>
                 뽑기
@@ -78,7 +92,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td colspan=3><button id="rep" type="button" onclick="location.href='/home/main/'">새로고침</button>
+            <td colspan=3><button id="normal_btn" type="button" onclick="location.href='/home/main/'">새로고침</button>
         </tr>
     </table>
     <table align="center"><tr><td><div id="notice">
@@ -96,11 +110,11 @@
             <tr>
                 <td rowspan=2 width=160 height=160><img src="/1234/" style="vertical-align:top;" width='150'
                         height='150'></img></td>
-                <td bgcolor="#E0E0F8" width=220 height=10>이름은 자동 입력이에요!</td>
-                <td bgcolor="#E0E0F8" style="text-align=right">장소</td>
-                <td><input type="text" id="where" name="where"></td>
+                <td bgcolor="#E0E0F8" width=200 height=10>이름은 자동 입력이에요!</td>
+                <td bgcolor="#E0E0F8" width=40>장소</td>
+                <td><input type="text" id="where" name="where" style="height:22px;"></td>
                 <td bgcolor="#E0E0F8" width=40>PW</td>
-                <td><input type="password" id="password" name="password" style="width:132px"></td>
+                <td><input type="password" id="password" name="password" style="width:130px;height:22px;"></td>
             </tr>
             <tr>
                 <td colspan=6 style="vertical-align:top;">
@@ -116,17 +130,22 @@
         </table>
     </form>
     <hr style="width:800px">
-    {% for log in logs %}
+    {% for log in data.logs %}
     <table id="inp" align=center>
         <tr>
             <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
                     height='150'></img></td>
-            <td colspan=3 bgcolor="#E0E0F8" width=370 height=10><strong>{{ log.charname }}</strong>, {{ log.where }}
+            <td colspan=3 bgcolor="#E0E0F8" width=370 height=10 style="text-align: left;"><strong>{{ log.charname }}</strong>, {{ log.where }}
             </td>
             <td bgcolor="#E0E0F8" width=150><small>{{ log.write_dttm }}</small></td>
         </tr>
         <tr>
-            <td colspan=5 width=600 style="vertical-align:top; text-align:left"><br>&nbsp;{{ log.contents }}</td>
+            <td id="contents" colspan=5 width=600>
+                &nbsp;
+                    {% autoescape off %}
+                    {{ log.contents|linebreaksbr }}
+                    {% endautoescape %}
+                </td>
         </tr>
         <tr style="height:40px;">
             <td style="text-align:left; color:#9F81F7"><b>&nbsp;&nbsp;&nbsp;{{ log.sublog_count }}</b></td>
@@ -140,9 +159,40 @@
 
     </table>
     <hr style="width:800px">
+    {% if forloop.last %}
+    <table align='center' style="border-collapse: collapse;">
+        <tr>
+            <td>
+                <button id ='normal_btn' type="button" onclick="location.href='/home/main/'" style="width:35px;height:32px; "><<</button>
+            </td>
+            {% for pag in data.page %}
+            {% if pag != 0 %}
+            <td>
+                <button id ='normal_btn' type="button" onclick="location.href='/home/main/{{pag}}'" style="width:35px;height:32px; ">{{ pag }}</button>
+            </td>
+            {% endif %}
+            {% endfor %}
+            <form action="/home/main/paging" method="get">
+                <td><input type="text" id="page" name="page" style="width:40px;height:32px;"></td>
+            <td>
+                    
+                    <button id ='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
+            </td>
+            </form>
+        </tr>
+    </table>
+
+    {% endif %}
     {% endfor   %}
+    
+
     <div id='top'>
-            <button type="button" onclick="location.href='#top_direct'" style="width:25px">↑</button>
+            <button id='normal_btn' type="button" onclick="location.href='#top_direct'" style="width:25px">↑</button>
+    </div>
+    <div id='latest'>
+            <table><tr><td style="color: #9F81F7;">
+                최근 접속자{% for age in data.latest %}<br>{{ age}}{% endfor %}
+            </td></tr></table>
     </div>
 
 </body>

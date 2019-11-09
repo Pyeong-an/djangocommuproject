@@ -46,6 +46,10 @@
             font-size: 16px;
             width: 100px
         }
+        input {
+            border: 1px solid #E0E0F8;
+            border-radius: 7px;
+        }
         #contents{
             vertical-align:top;
             text-align:left;
@@ -111,13 +115,13 @@
                         height='150'></img></td>
                 <td bgcolor="#E0E0F8" width=200 height=10>이름은 자동 입력이에요!</td>
                 <td bgcolor="#E0E0F8" width=40>장소</td>
-                <td><input type="text" id="where" name="where" style="height:22px;"></td>
+                <td><input type="text" required id="where" name="where" style="height:22px;"></td>
                 <td bgcolor="#E0E0F8" width=40>PW</td>
-                <td><input type="password" id="password" name="password" style="width:130px;height:22px;"></td>
+                <td><input type="password" required id="password" name="password" style="width:130px;height:22px;"></td>
             </tr>
             <tr>
                 <td colspan=6 style="vertical-align:top;">
-                    <textarea style="width:600px;height:129px;resize:none;" id="contents" name='contents'></textarea>
+                    <textarea required style="width:600px;height:129px;resize:none;" id="contents" name='contents'></textarea>
                 </td>
             </tr>
             <tr>

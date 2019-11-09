@@ -1,0 +1,248 @@
+<html>
+
+<head>
+    <title>커뮤니티 메인홈페이지</title>
+    <meta charset="utf-8">
+    <style>
+        table tr td {
+            border-radius: 6px;
+            text-align: center;
+            color: rgb(136, 100, 245);
+        }
+
+        #inp {
+            position: relative;
+            z-index: 1;
+
+            border: 2px solid #E0E0F8;
+            border-radius: 6px;
+
+        }
+
+        #inp:after {
+            top: 0;
+            left: 0;
+            position: absolute;
+            opacity: 0.1 !important;
+            filter: alpha(opacity=50);
+            z-index: -1;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: url(/static/img/emblem.png);
+            opacity: 0.3;
+        }
+
+        input {
+            border: 1px solid #E0E0F8;
+            border-radius: 7px;
+        }
+
+        #normal_btn {
+            border-radius: 8px;
+            border: 1px solid #E0E0F8;
+            background-color: white;
+            color: rgb(136, 100, 245);
+            padding: 5px;
+            font-size: 16px;
+            width: 100px
+        }
+
+        #contents {
+            vertical-align: top;
+            text-align: left;
+            border: 1px solid #E0E0F8;
+            border-radius: 6px;
+            color: black;
+            background-color: rgb(255, 255, 255, 0.6);
+        }
+
+        #notice {
+            text-align: center;
+            background-image: url(/static/img/notice.jpg);
+            color: black;
+            width: 500px;
+        }
+
+        #top {
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+        }
+
+        #latest {
+            position: fixed;
+            bottom: 50%;
+            right: 10px;
+
+            border: 2px solid #E0E0F8;
+            border-radius: 6px;
+            color: rgb(136, 100, 245);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="top_direct"><br></div>
+    <table align=center>
+        <tr>
+            <td width=100>
+                뽑기
+            </td>
+            <td width=100>
+
+            </td>
+            <td width=100><a href="/home/charank/" style="text-decoration:none; color:green">로그 순위</a>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan=3><button id="normal_btn" type="button"
+                    onclick="location.href='/home/main'">메인 페이지</button>
+        </tr>
+    </table>
+    <table align="center">
+        <tr>
+            <td>
+                <div id="notice">
+                    <hr style="width:500px">
+                    <p style="height:10px">공지</p>
+                    <hr style="width:500px">
+                    <p>공지 테스트</p>
+                    <hr style="width:500px">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr style="width:800px">
+    <br>
+    <form action="/home/main/" method="post" align="center">
+        {% csrf_token %}
+        <table id="inp" align=center>
+            <tr>
+                <td rowspan=2 width=160 height=160><img src="/1234/" style="vertical-align:top;" width='150'
+                        height='150'></img></td>
+                <td bgcolor="#E0E0F8" width=200 height=10>이름은 자동 입력이에요!</td>
+                <td bgcolor="#E0E0F8" width=40>장소</td>
+                <td><input type="text" required id="where" name="where" style="height:22px;"></td>
+                <td bgcolor="#E0E0F8" width=40>PW</td>
+                <td><input type="password" required id="password" name="password" style="width:130px;height:22px;"></td>
+            </tr>
+            <tr>
+                <td colspan=6 style="vertical-align:top;">
+                    <textarea required style="width:600px;height:129px;resize:none;" id="contents" name='contents'></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=5></td>
+
+                <td style="text-align:right;"><button id="normal_btn" type="submit">작성</button></td>
+
+            </tr>
+        </table>
+    </form>
+    <hr style="width:800px">
+    {% for log in data.logs %}
+    <table id="inp" align=center>
+        <tr>
+            <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
+                    height='150'></img></td>
+                    <td bgcolor="#E0E0F8"><small>{{log.id}}</small></td>
+
+            <td colspan=2 bgcolor="#E0E0F8" width=370 height=10 style="text-align: left;">&nbsp;&nbsp;&nbsp;
+                <strong>{{ log.charname }}</strong>, {{ log.where }}
+            </td>
+            <td bgcolor="#E0E0F8" width=150><small>{{ log.write_dttm }}</small></td>
+        </tr>
+        <tr>
+            <td id="contents" colspan=5 width=600>
+                &nbsp;
+                {% autoescape off %}
+                {{ log.contents|linebreaksbr }}
+                {% endautoescape %}
+            </td>
+        </tr>
+        <tr style="height:40px;">
+            <td style="text-align:left; color:#9F81F7"><b>&nbsp;⤷ &nbsp;{{ log.sublog_count }}</b></td>
+            <td colspan=3></td>
+
+            <td style="text-align:right;">
+                <button type="button" id="normal_btn" onclick="location.href='/home/log/{{log.id}}#rep'">상세</button>
+            </td>
+
+        </tr>
+        <tr>&nbsp;</tr>
+
+    </table>
+    <hr style="width:800px">
+    {% if forloop.last %}
+
+    <table align='center'>
+        <tr>
+            <td style="width:40px">
+                <button id='normal_btn' type="button"
+                    onclick="location.href='/home/search/?search_word={{data.search_word}}'"
+                    style="width:35px;height:32px; ">
+                    <<</button> </td> {% for pag in data.page %} {% if pag != 0 %} {% if forloop.last %}
+                        {% if data.next == 'F' %} <!-- {% endif %} {% endif %} <td style="width:45px; text-align=right">
+                        <button id='normal_btn' type="button"
+                            onclick="location.href='/home/search/{{pag}}?search_word={{data.search_word}}'"
+                            style="width:35px;height:32px; ">{{ pag }}</button>
+
+            </td>
+            {% if forloop.last %}
+            {% if data.next == 'F' %}
+            -->
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <form action="/home/search/paging" method="get">
+                <td>
+                    &nbsp;
+                </td>
+                <td><input type="text" id="page" name="page" required placeholder="Move page" style="width:80px;height:32px;">
+                </td>
+                <td><input type="text" id="search_word" name="search_word" required value="{{data.search_word}}"
+                        style="width:80px;height:32px;"></td>
+
+                <td>
+
+                    <button id='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+    <table align="center">
+        <tr>
+            <form action="/home/search" method="get">
+                <td><input type="text" required id="search_word" name="search_word" style="width:200px;height:32px;"></td>
+                <td>
+
+                    <button id='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+
+    {% endif %}
+    {% endfor   %}
+
+
+    <div id='top'>
+        <button id='normal_btn' type="button" onclick="location.href='#top_direct'" style="width:25px">↑</button>
+    </div>
+    <div id='latest'>
+        <table>
+            <tr>
+                <td style="color: #9F81F7;">
+                    최근 접속자{% for age in data.latest %}<br>{{ age}}{% endfor %}
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

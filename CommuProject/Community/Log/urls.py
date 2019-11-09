@@ -13,6 +13,10 @@ urlpatterns = [
     path('modify/<int:lg>',views.log_modify),#수정
     path('delete/<int:lg>', views.log_delete),#삭제
     path('charank/', views.char_ranking),
+    path('search/<int:page>',views.log_search),
+    path('search/',views.log_search),
+    path('search/paging',views.search_choose_paging),
+    path('version/<int:vers>',views.change_version)
     
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

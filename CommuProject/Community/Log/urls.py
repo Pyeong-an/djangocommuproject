@@ -16,7 +16,10 @@ urlpatterns = [
     path('search/<int:page>',views.log_search),
     path('search/',views.log_search),
     path('search/paging',views.search_choose_paging),
-    path('version/<int:vers>',views.change_version)
+    path('version/<int:vers>',views.change_version),
+
+    path('dice/',views.gatya),
+    path('gatya/',views.dice)
     
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

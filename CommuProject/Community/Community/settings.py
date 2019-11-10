@@ -26,7 +26,7 @@ SECRET_KEY = '_plvk@iow8_-v#f6stn^k)(-o5yis!(tkk+)m$8-$-)soni$ml'
 DEBUG = True #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ALLOWED_HOSTS = [
-   #'anysubaru.pythonanywhere.com'#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+#    'anysubaru.pythonanywhere.com'#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ]
 
 

@@ -69,6 +69,11 @@
             bottom: 20px;
             right: 10px;
         }
+        #option{
+            position: fixed;
+            top : 10px;
+            right: 5px;
+        }
 
         #latest {
             position: fixed;
@@ -78,6 +83,10 @@
             border: 2px solid #E0E0F8;
             border-radius: 6px;
             color: rgb(136, 100, 245);
+        }
+        #over {
+            height:20px;
+            width:20px;
         }
     </style>
 </head>
@@ -99,16 +108,17 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td colspan=3><button id="normal_btn" type="button"
-                    onclick="location.href='/home/main'">메인 페이지</button>
+            
+                <td colspan=3><button id="normal_btn" type="button" onclick="location.href='/home/main/'">메인페이지</button></td>
         </tr>
     </table>
+    <small><br></small>
     <table align="center">
         <tr>
             <td>
                 <div id="notice">
-                    <hr style="width:500px">
-                    <p style="height:10px">공지</p>
+                    <!-- <hr style="width:500px"> -->
+                    <p style="height:10px; padding:6px">공지</p>
                     <hr style="width:500px">
                     <p>공지 테스트</p>
                     <hr style="width:500px">
@@ -122,17 +132,18 @@
         {% csrf_token %}
         <table id="inp" align=center>
             <tr>
-                <td rowspan=2 width=160 height=160><img src="/1234/" style="vertical-align:top;" width='150'
+                <td rowspan=2 width=160 height=160><img src="/static/cone/jellyfish.png" style="vertical-align:top;" width='150'
                         height='150'></img></td>
                 <td bgcolor="#E0E0F8" width=200 height=10>이름은 자동 입력이에요!</td>
                 <td bgcolor="#E0E0F8" width=40>장소</td>
-                <td><input type="text" required id="where" name="where" style="height:22px;"></td>
+                <td><input type="text" value="{{data.where}}" required id="where" name="where" style="height:22px;"></td>
                 <td bgcolor="#E0E0F8" width=40>PW</td>
-                <td><input type="password" required id="password" name="password" style="width:130px;height:22px;"></td>
+                <td><input type="password" value="{{data.password}}" required id="password" name="password" style="width:130px;height:22px;"></td>
             </tr>
             <tr>
                 <td colspan=6 style="vertical-align:top;">
-                    <textarea required style="width:600px;height:129px;resize:none;" id="contents" name='contents'></textarea>
+                    <textarea required style="width:600px;height:129px;resize:none;" id="contents"
+                        name='contents'></textarea>
                 </td>
             </tr>
             <tr>
@@ -143,16 +154,162 @@
             </tr>
         </table>
     </form>
+
+    {% if data.main_type == 'old' %}
+    {% for subloglist in data.logs %}
+
+    {% for log in subloglist %}
+
+    {% if forloop.first %}
+    <table id="inp" align=center>
+        {% endif %}
+        <tr>
+            <td {% if forloop.last %} id='{{log.mainlog}}' {% endif %} colspan=2 rowspan=2 height=160><div>
+                    <img src="{{ log.charcon }}" style="vertical-align:top;"
+                    width='150' height='150'>
+            </div></td>
+            <td style="width:20px;text-align:center;" {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" {% endif %}>
+                <small>{{log.id}}</small></td>
+            <td {% if forloop.first %} colspan=2 bgcolor="#E0E0F8" {% else %} colspan=2 id="contents"
+                 {% endif %} height=10 style="text-align: left;">
+                &nbsp;&nbsp;&nbsp;<strong>{{ log.charname }}</strong>, {{ log.where }}
+            </td>
+            <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
+                {% endif %} colspan=3><small>{{ log.write_dttm }}</small></td>
+                <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
+                {% endif %}><a href="/home/log/{{log.mainlog}}#rep" style = "text-decoration:none; color:rgb(136, 100, 245)">댓글</a></td>
+                <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
+                {% endif %}><a href="/home/confirm/{{log.id}}" style="text-decoration:none; color:green">수정</a></td>
+                <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
+                {% endif %}><a href="/home/delete/{{log.id}}" style="text-decoration:none; color:red">삭제</a></td>
+            </tr>
+        <tr>
+            <td id="contents" colspan=9 style="width:600px">
+                &nbsp;
+                {% autoescape off %}
+                {{ log.contents|linebreaksbr }}
+                {% endautoescape %}
+            </td>
+        </tr>
+        {% if forloop.last %}
+
+        <!-- 각 테이블에 폼 -->
+
+        <form action="/home/log/{{ log.mainlog }}" method="post" align="center">
+            {% csrf_token %}
+            <tr>
+                <td colspan=2 rowspan=2 style="height:160px">
+                    
+                        <img src="/static/cone/jellyfish.png" style="vertical-align:top;"
+                    width='150' height='150'>
+
+                    </td>
+                <td colspan=2 >Where</td>
+                <td><input type="text" value="{{data.where}}" required id="where" name="where" placeholder=" Where"
+                        style="width:100%;height:22px;"></td>
+                <td colspan=2>PW</td>
+                <td colspan=4 width=100><input type="password" value="{{data.password}}" required id="password" name="password" placeholder=" Password"
+                        style="width:100%;height:22px;"></td>
+            </tr>
+            <tr>
+                <td colspan=9 style="vertical-align:top;">
+                    <textarea required style="width:100%;height:129px;resize:none;" id="contents"
+                        name='contents'></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 width=160></td>
+                
+                <td width=25></td>
+                <td width=70></td>
+                {% if forloop.counter > 20 %}
+                <td width = 150 style="text-align:right;"><label for="over">20개 초과해</label></td>
+            
+                <td width=70 style="text-align:left;"><label for="over">작성하기</label></td>
+                <td width=25><input type="checkbox" required id="over"></td>
+                {% else %}
+                <td width = 150></td>
+            
+                <td width=70 ></td>
+                <td width=25></td>
+                {% endif %}
+
+                <td width=50 ></td>
+                
+                
+                <td  colspan=3 width = 100 style="text-align:right;"><button id="normal_btn" type="submit">작성</button></td>
+            </tr>
+        </form> 
+        <br>
     <hr style="width:800px">
+    <br>
+
+    {% endif %}
+    <!--forloop.last (subloglist.sublog)-->
+
+
+    {% endfor %}
+    <!--logs.subloglist.sublog-->
+    {% if forloop.last %}
+    <table align='center' style="border-collapse: collapse;">
+        <tr>
+            <td>
+                <button id='normal_btn' type="button" onclick="location.href='/home/search/?search_word={{data.search_word}}'"
+                    style="width:35px;height:32px; ">
+                    <<</button> </td> {% for pag in data.page %} {% if pag != 0 %} {% if forloop.last %}
+                        {% if data.next == 'F' %} <!-- {% endif %} {% endif %} <td>
+                        <button id='normal_btn' type="button" onclick="location.href='/home/search/{{pag}}?search_word={{data.search_word}}'"
+                            style="width:35px;height:32px; ">{{ pag }}</button>
+            </td>
+            {% if forloop.last %}
+            {% if data.next == 'F' %}
+            -->
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <form action="/home/search/paging" method="get">
+                <td>
+                    &nbsp;
+                </td>
+                <td><input type="text" id="page" required name="page" placeholder="Move page"
+                        style="width:80px;height:32px;"></td>
+                <td>
+
+                    <button id='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+    <table align=center>
+        <tr>
+            <form action="/home/search" method="get">
+                <td><input type="text" id="search_word" required name="search_word" style="width:200px;height:32px;">
+                </td>
+                <td>
+
+                    <button id='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+
+    {% endif %}
+    <!-- forloop.last(subloglist)-->
+    {% endfor %}
+    <!-- logs.subloglist-->
+    {% else %}
+    <br>
+    <hr style="width:800px">
+
     {% for log in data.logs %}
     <table id="inp" align=center>
         <tr>
             <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
                     height='150'></img></td>
-                    <td bgcolor="#E0E0F8"><small>{{log.id}}</small></td>
-
-            <td colspan=2 bgcolor="#E0E0F8" width=370 height=10 style="text-align: left;">&nbsp;&nbsp;&nbsp;
-                <strong>{{ log.charname }}</strong>, {{ log.where }}
+            <td bgcolor="#E0E0F8"><small>{{log.id}}</small></td>
+            <td colspan=2 bgcolor="#E0E0F8" width=370 height=10 style="text-align: left;">
+                &nbsp;&nbsp;&nbsp;<strong>{{ log.charname }}</strong>, {{ log.where }}
             </td>
             <td bgcolor="#E0E0F8" width=150><small>{{ log.write_dttm }}</small></td>
         </tr>
@@ -176,21 +333,18 @@
         <tr>&nbsp;</tr>
 
     </table>
+    <br>
     <hr style="width:800px">
     {% if forloop.last %}
-
-    <table align='center'>
+    <table align='center' style="border-collapse: collapse;">
         <tr>
-            <td style="width:40px">
-                <button id='normal_btn' type="button"
-                    onclick="location.href='/home/search/?search_word={{data.search_word}}'"
+            <td>
+                <button id='normal_btn' type="button" onclick="location.href='/home/search/?search_word={{data.search_word}}'"
                     style="width:35px;height:32px; ">
                     <<</button> </td> {% for pag in data.page %} {% if pag != 0 %} {% if forloop.last %}
-                        {% if data.next == 'F' %} <!-- {% endif %} {% endif %} <td style="width:45px; text-align=right">
-                        <button id='normal_btn' type="button"
-                            onclick="location.href='/home/search/{{pag}}?search_word={{data.search_word}}'"
+                        {% if data.next == 'F' %} <!-- {% endif %} {% endif %} <td>
+                        <button id='normal_btn' type="button" onclick="location.href='/home/search/{{pag}}?search_word={{data.search_word}}'"
                             style="width:35px;height:32px; ">{{ pag }}</button>
-
             </td>
             {% if forloop.last %}
             {% if data.next == 'F' %}
@@ -203,11 +357,8 @@
                 <td>
                     &nbsp;
                 </td>
-                <td><input type="text" id="page" name="page" required placeholder="Move page" style="width:80px;height:32px;">
-                </td>
-                <td><input type="text" id="search_word" name="search_word" required value="{{data.search_word}}"
+                <td><input type="text" id="page" required name="page" placeholder="Move page"
                         style="width:80px;height:32px;"></td>
-
                 <td>
 
                     <button id='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
@@ -215,10 +366,11 @@
             </form>
         </tr>
     </table>
-    <table align="center">
+    <table align=center>
         <tr>
             <form action="/home/search" method="get">
-                <td><input type="text" required id="search_word" name="search_word" style="width:200px;height:32px;"></td>
+                <td><input type="text" id="search_word" required name="search_word" style="width:200px;height:32px;">
+                </td>
                 <td>
 
                     <button id='normal_btn' type="submit" style="width:50px;height:32px;">이동</button>
@@ -226,14 +378,28 @@
             </form>
         </tr>
     </table>
+
 
     {% endif %}
     {% endfor   %}
 
-
+    {% endif %}
+    <div id ='option' style="color:rgb(136, 100, 245); text-align:right">
+        <details>
+            <summary> </summary>
+            <div style="text-align: center;">로그 뷰어<br></div>
+            <button id='normal_btn' type="button" onclick="location.href='/home/version/0'" style="width:80px">접기</button>
+            <button id = 'normal_btn'style="width:80px"type="button" onclick="location.href='/home/version/1'">펴기</button><br><br>
+            <div style="text-align: center;">최근 접속자<br></div>
+            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/home/version/2'">켜기</button>  
+            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/home/version/3'">끄기</button>
+        </details>    
+    
+    </div>
     <div id='top'>
         <button id='normal_btn' type="button" onclick="location.href='#top_direct'" style="width:25px">↑</button>
     </div>
+    {% if data.choijeob == 'on' %}
     <div id='latest'>
         <table>
             <tr>
@@ -243,6 +409,7 @@
             </tr>
         </table>
     </div>
+    {% endif %}
 </body>
 
 </html>

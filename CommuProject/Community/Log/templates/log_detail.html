@@ -57,13 +57,17 @@
             border-radius: 6px;
             background-color: rgb(255,255,255,0.6);
         }
+        #over {
+            height:20px;
+            width:20px;
+        }
     </style>
 
 </head>
 
 <body>
 
-    {% for log in logs %}
+    {% for log in data.logs %}
     <table align=center>
         <tr>
             <td rowspan=2 width=160 height=160><img src="{{ log.charcon }}" style="vertical-align:top;" width='150'
@@ -111,13 +115,13 @@
         {% csrf_token %}
         <table id="inp" align=center>
             <tr>
-                <td rowspan=2 width=160 height=160><img src="/1234/" style="vertical-align:top;" width='150'
+                <td rowspan=2 width=160 height=160><img src="/static/cone/jellyfish.png" style="vertical-align:top;" width='150'
                         height='150'></img></td>
                 <td bgcolor="#E0E0F8" width=200 height=10>이름은 자동 입력이에요!</td>
                 <td bgcolor="#E0E0F8" width=40>장소</td>
-                <td><input type="text" required id="where" name="where" style="height:22px;"></td>
+                <td><input type="text" value="{{data.where}}" required id="where" name="where" style="height:22px;"></td>
                 <td bgcolor="#E0E0F8" width=40>PW</td>
-                <td><input type="password" required id="password" name="password" style="width:130px;height:22px;"></td>
+                <td><input type="password" value="{{data.password}}" required id="password" name="password" style="width:130px;height:22px;"></td>
             </tr>
             <tr>
                 <td colspan=6 style="vertical-align:top;">
@@ -125,8 +129,16 @@
                 </td>
             </tr>
             <tr>
-                <td colspan=5></td>
-
+                <td></td>
+                <td></td>
+                <td></td>
+                {% if forloop.counter > 20 %}
+                <td width = 150 style="text-align:right;"><label for="over">20개 초과해 작성하기</label></td>
+                <td width=25 style="text-align:left;"><input type="checkbox" required id="over"></td>
+                {% else %}
+                <td></td>
+                <td></td>
+                {% endif %}
                 <td style="text-align:right;"><button id="normal_btn" type="submit">작성</button></td>
 
             </tr>

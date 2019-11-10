@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>가챠 페이지</title>
+        <meta charset="utf-8">
+        <style>
+        #normal_btn {
+            border-radius: 8px;
+            border: 1px solid #E0E0F8;
+            background-color: white;
+            color: rgb(136, 100, 245);
+            padding: 5px;
+            font-size: 16px;
+            width: 100px
+        }
+    </style>
+    </head>
+    <body>
+        <table align='center' style='text-align: center;'>
+            <tr>
+                <td id='gatya'>
+                        <button id="normal_btn" type="button" class="normal_btn"
+                        onclick="location.href='/home/dice/'">뽑기!</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {% if data.img != 0 %}
+                    <img style="width:50%;"src='{{data.img}}'>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td style="color:rgb(136,100,245)">
+                        {% autoescape off %}
+                        {{ data.speak }}
+                        {% endautoescape %}
+                        <br><br>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                        {% autoescape off %}
+                        {{ data.effect|linebreaksbr }}
+                        {% endautoescape %}
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

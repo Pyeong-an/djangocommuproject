@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <title>로그 저장 페이지</title>
+    <meta charset="utf-8">
+    <style>
+        #normal_btn {
+            border-radius: 8px;
+            border: 1px solid #E0E0F8;
+            background-color: white;
+            color: rgb(136, 100, 245);
+            padding: 5px;
+            font-size: 16px;
+            width: 100px
+        }
+
+    </style>
+</head>
+
+<body>
+    <table align=center>
+        <tr>
+
+            <td colspan=3><button id="normal_btn" type="button" class="normal_btn"
+                    onclick="location.href='/home/main/'">메인 페이지</button></td>
+        </tr>
+    </table>
+    <small><br></small>
+
+    {% if data.main_type == 'old' %}
+    {% for subloglist in data.logs %}
+    {% for log in subloglist %}
+
+    {% if forloop.first %}
+    <table id="inp" align=center>
+        {% endif %}
+        <tr>
+            <td><small>{{log.id}}</small>||<strong>{{ log.charname }}</strong>||{{ log.where }}||<small>{{ log.write_dttm }}</small></td>
+        <tr>
+            <td>
+                {% autoescape off %}
+                {{ log.contents|linebreaksbr }}
+                {% endautoescape %}
+            </td>
+        </tr>
+        {% if forloop.last %}
+    </table>
+        {% endif %}
+
+        {% endfor %}
+        <hr style='width:55%'>
+        <!--logs.subloglist.sublog-->
+        <!-- forloop.last(subloglist)-->
+        {% endfor %}
+        <!-- logs.subloglist-->
+        {% endif %}
+</body>
+
+</html>

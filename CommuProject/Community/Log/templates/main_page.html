@@ -3,6 +3,7 @@
 <head>
     <title>커뮤니티 메인홈페이지</title>
     <meta charset="utf-8">
+    
     <style>
         table tr td {
             border-radius: 6px;
@@ -107,6 +108,17 @@
             </td>
         </tr>
         <tr>
+                <td width=100>
+                        <a href="/home/world/" style="text-decoration:none; color:green">세계관</a>
+                </td>
+                <td width=100>
+    
+                </td>
+                <td width=100><a href="/home/save/{{ data.page.1 }}
+                    " style="text-decoration:none; color:green">로그 저장</a>
+                </td>
+            </tr>
+        <tr>
             <td>&nbsp;</td>
         </tr>
         <tr>
@@ -151,13 +163,9 @@
                         name='contents'></textarea>
                 </td>
             </tr>
-            <tr>
-                <td colspan=5></td>
-
-                <td style="text-align:right;"><button id="normal_btn" type="submit">작성</button></td>
-
-            </tr>
+            
         </table>
+        
     </form>
 
     {% if data.main_type == 'old' %}
@@ -176,7 +184,7 @@
             </td>
             <td style="width:20px;text-align:center;" {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents"
                 {% endif %}>
-                <small>{{log.id}}</small></td>
+                <small>{{log.mainlog}}</small></td>
             <td {% if forloop.first %} colspan=2 bgcolor="#E0E0F8" {% else %} colspan=2 id="contents" {% endif %}
                 height=10 style="text-align: left;">
                 &nbsp;&nbsp;&nbsp;<strong>{{ log.charname }}</strong>, {{ log.where }}
@@ -199,6 +207,12 @@
                 {% endautoescape %}
             </td>
         </tr>
+        <tr>
+                <td colspan=8></td>
+
+                <td colspan=3 style="text-align:right;"><button id="normal_btn" type="button" onclick='input_table()'>작성</button></td>
+
+            </tr>
         {% if forloop.last %}
 
         <!-- 각 테이블에 폼 -->
@@ -411,6 +425,10 @@
             <div style="text-align: center;color:rgb(136, 100, 245)">최근 접속자<br></div>
             <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/home/version/2'">켜기</button>  
             <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/home/version/3'">끄기</button>
+            <br><br>
+            <div style="text-align: center;color:rgb(136, 100, 245)">세계관 효과<br></div>
+            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/home/version/4'">켜기</button>  
+            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/home/version/5'">끄기</button>
         </details>    
 
         

@@ -219,7 +219,7 @@ def latest_char():
             
 
             write_time = datetime.today().minute - latest_sublog.write_dttm.minute
-            if write_time < 0 and (datetime.today().hour -latest_sublog.write_dttm.hour ==1 or  datetime.today().hour==0):
+            if write_time < 0 and (datetime.today().hour -latest_sublog.write_dttm.hour ==1 and  datetime.today().day == latest_sublog.write_dttm.day and datetime.today().month == latest_sublog.write_dttm.month and datetime.today().year == latest_sublog.write_dttm.year):
                 write_time += 60
             if write_time <= 5 and write_time>=0 : #차가 5분 이하일 경우
                 latest.append(latest_sublog.charname+" "+str(write_time)+"분")
@@ -554,11 +554,9 @@ def log_search(request,page=1):
 
     else:
         data = {'logs':loglist, 'latest':latest,'page':[page-1,page,page+1], 'search_word':search_word, 'next':nextpage, 'main_type':main_type, 'choijeob':choijeob, 'where':where,'password':password }
-#{'logs':subloglist_list, 'latest':latest,'page':[page-1,page,page+1], 'next':nextpage,'main_type':main_type, 'choijeob':choijeob, 'where':where,'password':password}
 
 
     return render(request, 'search_page.html',{'data' : data})
-
 #구버전 세션 저장용
 def change_version(request,vers):
     """
@@ -571,6 +569,41 @@ def change_version(request,vers):
         request.session['main_type'] = 'old'
     elif vers == 2:
         request.session['latest'] = 'on'
-    else:
+    elif vers==3:
         request.session['latest'] = 'off'
+        
+    elif vers == 4:
+        request.session['world'] = 'on'
+    elif vers==5:
+        request.session['world'] = 'off'
     return redirect('/home/main/')
+
+def save_log(request,page=1):
+    """
+    현재 페이지에 표시된 로그들을 저장하는 함수
+    """
+    main_type = request.session.get('main_type',"")
+    if main_type != 'old':
+        return Warning_site(request)#old 버전, 펴기 모드에서만 지원 가능하게 설정
+    else:
+        data = main_GET_data(request,page)
+        return render(request, 'save_log.html',{'data' : data})
+
+def save_detail_log(request, lg):
+    """
+    /home/log/<int:lg> 일때 실행되는 함수
+    """
+    if Mainlog_not_in_SubLogList(lg):
+        return Warning_site(request)
+    else:
+        data = detail_GET_data(request,lg)
+        return render(request, 'save_detail_log.html',{'data': data})
+
+
+def world(request,page=1):
+    """
+    weight 페이지로 이동하는 함수
+    """
+    world_page = 'weight' + str(page) +'.html'
+    world = request.session.get('world','on')
+    return render(request,world_page,{'data':world})

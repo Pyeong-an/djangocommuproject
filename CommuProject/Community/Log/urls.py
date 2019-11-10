@@ -19,7 +19,14 @@ urlpatterns = [
     path('version/<int:vers>',views.change_version),
 
     path('dice/',views.gatya),
-    path('gatya/',views.dice)
+    path('gatya/',views.dice),
+
+    path('save/',views.save_log),
+    path('save/<int:page>', views.save_log), #페이징
+    path('save_detail/<int:lg>',views.save_detail_log),
+
+    path('world/',views.world),
+    path('world/<int:page>',views.world),
     
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

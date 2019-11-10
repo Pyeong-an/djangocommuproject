@@ -26,7 +26,7 @@ SECRET_KEY = '_plvk@iow8_-v#f6stn^k)(-o5yis!(tkk+)m$8-$-)soni$ml'
 DEBUG = True #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ALLOWED_HOSTS = [
-#    'anysubaru.pythonanywhere.com'#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  # 'anysubaru.pythonanywhere.com'#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ]
 
 
@@ -124,7 +124,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-   os.path.join(BASE_DIR, "static"), 
+    os.path.join(BASE_DIR, "static"), 
 
 )
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

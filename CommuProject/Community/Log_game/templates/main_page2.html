@@ -98,22 +98,22 @@
     <table align=center>
         <tr>
             <td width=100>
-                    <a href="/home/gatya/" style="text-decoration:none; color:green">뽑기</a>
+                    <a href="/game/gatya/" style="text-decoration:none; color:green">뽑기</a>
             </td>
             <td width=100>
 
             </td>
-            <td width=100><a href="/home/charank/" style="text-decoration:none; color:green">로그 순위</a>
+            <td width=100><a href="/game/charank/" style="text-decoration:none; color:green">로그 순위</a>
             </td>
         </tr>
         <tr>
                 <td width=100>
-                        <a href="/home/world/" style="text-decoration:none; color:green">세계관</a>
+                        <a href="/game/world/" style="text-decoration:none; color:green">세계관</a>
                 </td>
                 <td width=100>
     
                 </td>
-                <td width=100><a href="/home/save/{{ data.page.1 }}
+                <td width=100><a href="/game/save/{{ data.page.1 }}
                     " style="text-decoration:none; color:green">로그 저장</a>
                 </td>
             </tr>
@@ -121,16 +121,14 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-
-            <td ><button id="normal_btn" type="button" class="normal_btn"
-                    onclick="location.href='/home/main/'">새로고침</button></td>
+                <td ><button id="normal_btn" type="button" class="normal_btn"
+                    onclick="location.href='/game/main/'">새로고침</button></td>
                     <td></td>
                     <td ><button id="normal_btn" type="button" class="normal_btn"
-                        onclick="location.href='/game/main/'">가상현실</button></td>
+                        onclick="location.href='/home/main/'">현실세계</button></td>
         </tr>
     </table>
     <small><br></small>
-    {% if data.notice != 'off' %}
     <table align="center">
         <tr>
             <td>
@@ -144,10 +142,9 @@
             </td>
         </tr>
     </table>
-    {% endif %}
     <hr style="width:800px">
     <br>
-    <form action="/home/main/" method="post" align="center">
+    <form action="/game/main/" method="post" align="center">
         {% csrf_token %}
         <table id="inp" align=center>
             <tr>
@@ -200,12 +197,12 @@
             <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
                 {% endif %} colspan=3><small>{{ log.write_dttm }}</small></td>
             <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
-                {% endif %}><a href="/home/log/{{log.mainlog}}#rep"
+                {% endif %}><a href="/game/log/{{log.mainlog}}#rep"
                     style="text-decoration:none; color:rgb(136, 100, 245)">댓글</a></td>
             <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
-                {% endif %}><a href="/home/confirm/{{log.id}}" style="text-decoration:none; color:green">수정</a></td>
+                {% endif %}><a href="/game/confirm/{{log.id}}" style="text-decoration:none; color:green">수정</a></td>
             <td {% if forloop.first %} bgcolor="#E0E0F8" {% else %} id="contents" style="text-align: center;"
-                {% endif %}><a href="/home/delete/{{log.id}}" style="text-decoration:none; color:red">삭제</a></td>
+                {% endif %}><a href="/game/delete/{{log.id}}" style="text-decoration:none; color:red">삭제</a></td>
         </tr>
         <tr>
             <td id="contents" colspan=9 style="width:600px">
@@ -219,7 +216,7 @@
 
         <!-- 각 테이블에 폼 -->
 
-        <form action="/home/log/{{ log.mainlog }}" method="post" align="center">
+        <form action="/game/log/{{ log.mainlog }}" method="post" align="center">
             {% csrf_token %}
             <tr>
                 <td colspan=2 rowspan=2 style="height:160px">
@@ -286,11 +283,11 @@
             <tr>
                 <td>
                     
-                    <button id='normal_btn' type="button" onclick="location.href='/home/main/'"
+                    <button id='normal_btn' type="button" onclick="location.href='/game/main/'"
                         style="width:35px;height:32px; ">
                         <<</button> </td> {% for pag in data.page %} {% if pag != 0 %} {% if forloop.last %}
                             {% if data.next == 'F' %} <!-- {% endif %} {% endif %} <td>
-                            <button id='normal_btn' type="button" onclick="location.href='/home/main/{{pag}}'"
+                            <button id='normal_btn' type="button" onclick="location.href='/game/main/{{pag}}'"
                                 style="width:35px;height:32px; ">{{ pag }}</button>
                 </td>
                 {% if forloop.last %}
@@ -300,7 +297,7 @@
                 {% endif %}
                 {% endif %}
                 {% endfor %}
-                <form action="/home/main/paging" method="get">
+                <form action="/game/main/paging" method="get">
                     <td>
                         &nbsp;
                     </td>
@@ -315,7 +312,7 @@
         </table>
         <table align=center>
             <tr>
-                <form action="/home/search" method="get">
+                <form action="/game/search" method="get">
                     <td><input type="text" id="search_word" required name="search_word"
                             style="width:200px;height:32px;">
                     </td>
@@ -359,7 +356,7 @@
                 <td colspan=3></td>
 
                 <td style="text-align:right;">
-                    <button type="button" id="normal_btn" onclick="location.href='/home/log/{{log.id}}#rep'">상세</button>
+                    <button type="button" id="normal_btn" onclick="location.href='/game/log/{{log.id}}#rep'">상세</button>
                 </td>
 
             </tr>
@@ -372,11 +369,11 @@
         <table align='center' style="border-collapse: collapse;">
             <tr>
                 <td>
-                    <button id='normal_btn' type="button" onclick="location.href='/home/main/'"
+                    <button id='normal_btn' type="button" onclick="location.href='/game/main/'"
                         style="width:35px;height:32px; ">
                         <<</button> </td> {% for pag in data.page %} {% if pag != 0 %} {% if forloop.last %}
                             {% if data.next == 'F' %} <!-- {% endif %} {% endif %} <td>
-                            <button id='normal_btn' type="button" onclick="location.href='/home/main/{{pag}}'"
+                            <button id='normal_btn' type="button" onclick="location.href='/game/main/{{pag}}'"
                                 style="width:35px;height:32px; ">{{ pag }}</button>
                 </td>
                 {% if forloop.last %}
@@ -386,7 +383,7 @@
                 {% endif %}
                 {% endif %}
                 {% endfor %}
-                <form action="/home/main/paging" method="get">
+                <form action="/game/main/paging" method="get">
                     <td>
                         &nbsp;
                     </td>
@@ -401,7 +398,7 @@
         </table>
         <table align=center>
             <tr>
-                <form action="/home/search" method="get">
+                <form action="/game/search" method="get">
                     <td><input type="text" id="search_word" required name="search_word"
                             style="width:200px;height:32px;">
                     </td>
@@ -422,19 +419,19 @@
         <details>
             <summary>CLICK !!</summary>
             <div style="text-align: center;color:rgb(136, 100, 245)">로그 뷰어<br></div>
-            <button id='normal_btn' type="button" onclick="location.href='/home/version/0'" style="width:80px">접기</button>
-            <button id = 'normal_btn'style="width:80px"type="button" onclick="location.href='/home/version/1'">펴기</button><br>
+            <button id='normal_btn' type="button" onclick="location.href='/game/version/0'" style="width:80px">접기</button>
+            <button id = 'normal_btn'style="width:80px"type="button" onclick="location.href='/game/version/1'">펴기</button><br>
             <div style="text-align: center;color:rgb(136, 100, 245)">최근 접속자<br></div>
-            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/home/version/2'">켜기</button>  
-            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/home/version/3'">끄기</button>
+            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/game/version/2'">켜기</button>  
+            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/game/version/3'">끄기</button>
             <br>
             <div style="text-align: center;color:rgb(136, 100, 245)">세계관 효과<br></div>
-            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/home/version/4'">켜기</button>  
-            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/home/version/5'">끄기</button>
+            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/game/version/4'">켜기</button>  
+            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/game/version/5'">끄기</button>
             <br>
             <div style="text-align: center;color:rgb(136, 100, 245)">공지<br></div>
-            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/home/version/6'">켜기</button>  
-            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/home/version/7'">끄기</button>
+            <button id='normal_btn' style="width:80px" type="button" onclick="location.href='/game/version/6'">켜기</button>  
+            <button id = 'normal_btn'style="width:80px" type="button" onclick="location.href='/game/version/7'">끄기</button>
         </details>    
 
         

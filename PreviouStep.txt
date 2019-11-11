@@ -25,5 +25,18 @@ password = 'fastfast152'
 모델 작성
 class 모델이름(models.Model):'
 
+데이터베이스에 변경점이 있을 때만 마이그레이션
 python manage.py makemigtations
 python manage.py migrate
+
+admin에 뜰 목록 작성
+form .models import 모델이름
+
+
+
+게시판 복사하는 방법
+startapp으로 두개 더 만듬
+다 복사 붙여넣기
+모델명 같아도 괜찮을까? -> 다음에 시험해보자!
+템플릿 명은 같으면 안됨!
+어드민, 모델, url 다 확인해서 고치자

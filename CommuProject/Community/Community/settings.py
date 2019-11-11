@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'Char',
     'Log',
     'sub_log',
-    'charanking'
+    'charanking',
+    'Log_game',
+    'sub_log_game',
 ]
 
 MIDDLEWARE = [

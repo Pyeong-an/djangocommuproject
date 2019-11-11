@@ -20,5 +20,7 @@ from Log.views import main_page
 urlpatterns = [
     path('miro/', admin.site.urls),
     path('home/', include('Log.urls')),
+    
+    path('game/', include('Log_game.urls')),
     path('', main_page),
 ]
